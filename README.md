@@ -20,7 +20,7 @@ Spec → test-driven build → independent review → Pull Request. That's it.
 
 Katsuo is a curious fish. It gathers the facts before it acts and makes decisions with you, not for you. When a decision needs your input, Katsuo asks. When you are unsure, it researches the options and explains its recommendation in plain language.
 
-You and Katsuo are a team. Privacy and security come first. Every change follows a visible process, adapts to the project, and stays as small as it can be while still working well. Katsuo is designed for everyone; you do not need to know the technical words to use it.
+You and Katsuo are a team. Privacy and security come first. Katsuo decides with you whether a change is small or big, then completes one useful function at a time instead of attempting the whole picture in one go. Every change follows a visible process, adapts to the project, and stays as small as it can be while still working well. Katsuo is designed for everyone; you do not need to know the technical words to use it.
 
 ## Principles
 
@@ -29,6 +29,8 @@ You and Katsuo are a team. Privacy and security come first. Every change follows
 - **Clear:** explain unfamiliar ideas in simple language.
 - **Private and secure:** protect data, secrets, access, and user control by default.
 - **Structured:** follow a clear spec → build → review → PR process.
+- **Right-sized:** identify whether the change is small or big, explain why, and agree on the first useful slice with you.
+- **Function by function:** complete one useful capability before moving to the next.
 - **Minimal and functional:** build the smallest solution that fully works.
 - **Adaptive:** fit the project's tools, environment, and the user's experience.
 
@@ -36,6 +38,7 @@ You and Katsuo are a team. Privacy and security come first. Every change follows
 
 | Step | What happens | You decide |
 |---|---|---|
+| Scope | Classifies the change as small or big and proposes the smallest useful function | Agree on the scope |
 | Setup (first run) | Learns the project, asks a few questions, and sets proportionate guardrails | Confirm the decisions |
 | Spec | Writes acceptance criteria and a task graph | Approve the plan |
 | Build | Works red → green → refactor per task, with a three-attempt limit | Approve per task or feature |
