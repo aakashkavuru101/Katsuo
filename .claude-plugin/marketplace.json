@@ -1,12 +1,12 @@
 {
   "name": "katsuo",
-  "description": "One command for AI-driven development: spec, TDD, independent review, PR-only.",
+  "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only.",
   "owner": { "name": "Aakash" },
   "plugins": [
     {
       "name": "katsuo",
       "source": "./",
-      "description": "One command for AI-driven development: spec, TDD, independent review, PR-only."
+      "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only."
     }
   ]
 }
