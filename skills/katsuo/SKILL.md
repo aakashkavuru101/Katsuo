@@ -28,11 +28,23 @@ Request: $ARGUMENTS (if empty, use the user's message). Reply in the user's lang
 - Docs: short, headings and tables, one topic per file, updated in the same PR as the code.
 - GitHub repos: feature branch and Pull Request only. Never push to main/master, force-push, or merge.
 
+## Size the work first
+
+Before planning or changing files:
+
+1. Inspect the request and enough of the project to understand the affected behavior.
+2. Label the change **Small** or **Big**, give a one-sentence reason, and identify the smallest useful function to complete first.
+3. Show that scope to the user and wait for agreement.
+
+**Small** means one focused behavior, limited files, and no new architecture, data migration, dependency, or privacy/security boundary. **Big** means multiple independent behaviors or components, or a change to architecture, data, dependencies, privacy, security, cost, or another high-risk boundary.
+
+For big work, keep the larger picture as context and constraints. Take one independently useful function through spec → build → review → PR before starting the next. Do not attempt every function in one pass. If the size or first function is unclear, ask the user; if the user is unsure, research safe public sources and recommend a starting point.
+
 ## 0. Setup (only if `docs/project.md` is missing)
 
 Inspect the repo first (stack, test command, `git remote -v`). Ask only what you can't detect, max 3 questions at a time, each with a recommended default:
 
-1. Size: prototype · product · team
+1. Project tier: prototype · product · team
 2. Does it expose an API? Call external APIs?
 3. Does it use LLMs? Handle personal data?
 4. Where does it run, and which services (DB, queue)?
