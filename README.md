@@ -69,12 +69,31 @@ Katsuo needs `python3` on `PATH` for the hook. The `gh` CLI is recommended for P
 
 **Update:** `claude plugin marketplace update katsuo` · **Remove:** `claude plugin uninstall katsuo@katsuo` / `codex plugin remove katsuo`
 
+## Proof
+
+```bash
+python3 tests/e2e_smoke.py
+python3 tests/e2e_smoke.py --live
+```
+
+The first command proves the package contracts and the real manifest-to-hook path, validates the Claude package when Claude Code is installed, and confirms Codex discovery when Codex is installed. `--live` also invokes Katsuo through both authenticated hosts and checks its response. Claude tools are disabled and Codex runs in its read-only sandbox. Credentials stay with the host CLIs and are never stored by the test.
+
+| Evidence | What it proves |
+|---|---|
+| CI test suite | Package consistency, referenced files, guard behavior, and packaged hook wiring |
+| Claude validation | Claude Code accepts the plugin package |
+| Codex discovery | Codex has Katsuo installed and enabled |
+| Live smoke | Each host can load and run Katsuo's skill |
+
+A passing test proves the tested path. It does not make every future model decision deterministic.
+
 ## Files
 
 ```text
 skills/katsuo/SKILL.md  the command and working process
 agents/reviewer.md      independent reviewer (read-only)
 hooks/guard_git.py      PR-only Git guard
+tests/e2e_smoke.py      deterministic and live proof command
 ```
 
 Author: Aakash

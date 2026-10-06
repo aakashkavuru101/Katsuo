@@ -69,12 +69,31 @@ Claude Codeでは`/katsuo`、Codexでは`$katsuo`で実行します。
 
 **更新:** `claude plugin marketplace update katsuo` · **削除:** `claude plugin uninstall katsuo@katsuo` / `codex plugin remove katsuo`
 
+## 動作証明
+
+```bash
+python3 tests/e2e_smoke.py
+python3 tests/e2e_smoke.py --live
+```
+
+最初のコマンドは、パッケージの整合性とマニフェストから実際のフックまでの経路を証明します。Claude Codeがあればパッケージを検証し、CodexがあればKatsuoが有効かも確認します。`--live`は、認証済みの両方のホストからKatsuoを実行して応答を確認します。Claudeのツールは無効にし、Codexは読み取り専用サンドボックスで実行します。認証情報は各CLI内に留まり、テストには保存されません。
+
+| 根拠 | 証明すること |
+|---|---|
+| CIテスト | パッケージの整合性、参照ファイル、ガードの動作、フックの接続 |
+| Claude検証 | Claude Codeがプラグインを受け付けること |
+| Codex検出 | CodexでKatsuoがインストール済み・有効であること |
+| ライブスモーク | 両方のホストがKatsuoを読み込み実行できること |
+
+テスト合格が証明するのは、確認した経路です。将来のすべてのモデル判断が常に同じになることまでは保証しません。
+
 ## ファイル構成
 
 ```text
 skills/katsuo/SKILL.md  コマンドと作業プロセス
 agents/reviewer.md      独立レビュアー（読み取り専用）
 hooks/guard_git.py      PR運用を守るGitガード
+tests/e2e_smoke.py      決定的テストとライブ動作証明
 ```
 
 作者: Aakash
