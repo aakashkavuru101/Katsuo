@@ -1,6 +1,7 @@
 # katsuo 🐟
 
 [![Tests](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml)
+![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
 ![Version](https://img.shields.io/badge/version-0.1.0-2563eb)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
@@ -78,12 +79,14 @@ python3 tests/e2e_smoke.py --live
 
 最初のコマンドは、パッケージの整合性とマニフェストから実際のフックまでの経路を証明します。Claude Codeがあればパッケージを検証し、CodexがあればKatsuoが有効かも確認します。`--live`は、認証済みの両方のホストからKatsuoを実行して応答を確認します。Claudeのツールは無効にし、Codexは読み取り専用サンドボックスで実行します。認証情報は各CLI内に留まり、テストには保存されません。
 
+**2026-10-06 検証済み:** 決定的テスト、Claude Codeのライブスモーク、Codexのライブスモークはすべて合格しました。
+
 | 根拠 | 証明すること |
 |---|---|
 | CIテスト | パッケージの整合性、参照ファイル、ガードの動作、フックの接続 |
 | Claude検証 | Claude Codeがプラグインを受け付けること |
 | Codex検出 | CodexでKatsuoがインストール済み・有効であること |
-| ライブスモーク | 両方のホストがKatsuoを読み込み実行できること |
+| ライブスモーク | 合格: 両方のホストがKatsuoを読み込み実行できること |
 
 テスト合格が証明するのは、確認した経路です。将来のすべてのモデル判断が常に同じになることまでは保証しません。
 
