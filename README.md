@@ -1,6 +1,7 @@
 # katsuo 🐟
 
 [![Tests](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml)
+![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
 ![Version](https://img.shields.io/badge/version-0.1.0-2563eb)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
@@ -78,12 +79,14 @@ python3 tests/e2e_smoke.py --live
 
 The first command proves the package contracts and the real manifest-to-hook path, validates the Claude package when Claude Code is installed, and confirms Codex discovery when Codex is installed. `--live` also invokes Katsuo through both authenticated hosts and checks its response. Claude tools are disabled and Codex runs in its read-only sandbox. Credentials stay with the host CLIs and are never stored by the test.
 
+**Verified 2026-10-06:** the deterministic suite, Claude Code live smoke, and Codex live smoke all passed.
+
 | Evidence | What it proves |
 |---|---|
 | CI test suite | Package consistency, referenced files, guard behavior, and packaged hook wiring |
 | Claude validation | Claude Code accepts the plugin package |
 | Codex discovery | Codex has Katsuo installed and enabled |
-| Live smoke | Each host can load and run Katsuo's skill |
+| Live smoke | Passed: both hosts loaded and ran Katsuo's skill |
 
 A passing test proves the tested path. It does not make every future model decision deterministic.
 
