@@ -1,52 +1,10 @@
-# katsuo 🐟
+# katsuo
 
 [![Tests](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/AllBlue-inc/Katsuo/actions/workflows/test.yml)
-![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
-![Version](https://img.shields.io/badge/version-0.1.0-2563eb)
-![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
-![Codex](https://img.shields.io/badge/Codex-plugin-111827)
 
 **English** | [日本語](README_JA.md)
 
-Your curious AI development partner.
-Like dashi from katsuobushi: one ingredient, full flavour.
-
-```text
-/katsuo add password reset by email
-```
-
-Spec → test-driven build → independent review → Pull Request. That's it.
-
-## The idea
-
-Katsuo is a curious fish. It gathers the facts before it acts and makes decisions with you, not for you. When a decision needs your input, Katsuo asks. When you are unsure, it researches the options and explains its recommendation in plain language.
-
-You and Katsuo are a team. Privacy and security come first. Katsuo decides with you whether a change is small or big, then completes one useful function at a time instead of attempting the whole picture in one go. Every change follows a visible process, adapts to the project, and stays as small as it can be while still working well. Katsuo is designed for everyone; you do not need to know the technical words to use it.
-
-## Principles
-
-- **Curious:** inspect the project and gather evidence before deciding.
-- **Together:** involve you in decisions that change the outcome or risk.
-- **Clear:** explain unfamiliar ideas in simple language.
-- **Private and secure:** protect data, secrets, access, and user control by default.
-- **Structured:** follow a clear spec → build → review → PR process.
-- **Right-sized:** identify whether the change is small or big, explain why, and agree on the first useful slice with you.
-- **Function by function:** complete one useful capability before moving to the next.
-- **Minimal and functional:** build the smallest solution that fully works.
-- **Adaptive:** fit the project's tools, environment, and the user's experience.
-
-## What it does
-
-| Step | What happens | You decide |
-|---|---|---|
-| Scope | Classifies the change as small or big and proposes the smallest useful function | Agree on the scope |
-| Setup (first run) | Learns the project, asks a few questions, and sets proportionate guardrails | Confirm the decisions |
-| Spec | Writes acceptance criteria and a task graph | Approve the plan |
-| Build | Works red → green → refactor per task, with a three-attempt limit | Approve per task or feature |
-| Review | Uses a fresh read-only reviewer for the spec, tests, security, and simplicity | Resolve any remaining blockers |
-| PR | Pushes a feature branch and opens a Pull Request | You merge |
-
-The agent cannot push to `main`/`master`, force-push, or merge in GitHub repositories. A hook blocks it. You still can.
+A development plugin for Claude Code and Codex. It works in this order: spec → test-driven build → independent review → Pull Request.
 
 ## Install
 
@@ -62,41 +20,45 @@ claude plugin marketplace add AllBlue-inc/katsuo && claude plugin install katsuo
 codex plugin marketplace add AllBlue-inc/katsuo && codex plugin add katsuo@katsuo
 ```
 
-Then open `/hooks` in Codex and trust Katsuo's hook.
+In Codex, open `/hooks` after installing and trust Katsuo's hook.
 
-Run it with `/katsuo` in Claude Code, or `$katsuo` in Codex.
-
-Katsuo needs `python3` on `PATH` for the hook. The `gh` CLI is recommended for Pull Requests.
+The hook needs `python3` on `PATH`. The `gh` CLI is recommended for Pull Requests.
 
 **Update:** `claude plugin marketplace update katsuo` · **Remove:** `claude plugin uninstall katsuo@katsuo` / `codex plugin remove katsuo`
 
-## Proof
+## Usage
 
-```bash
-python3 tests/e2e_smoke.py
-python3 tests/e2e_smoke.py --live
+Type `/katsuo` in Claude Code, or `$katsuo` in Codex, followed by what you want to build.
+
+```text
+/katsuo add password reset by email
 ```
 
-The first command proves the package contracts and the real manifest-to-hook path, validates the Claude package when Claude Code is installed, and confirms Codex discovery when Codex is installed. `--live` also invokes Katsuo through both authenticated hosts and checks its response. Claude tools are disabled and Codex runs in its read-only sandbox. Credentials stay with the host CLIs and are never stored by the test.
+1. Katsuo classifies the change as small or big and proposes the first function to build. Agree on the scope.
+2. First run only: it asks about the project (up to 3 questions at a time). Your answers create `docs/project.md` and `AGENTS.md`.
+3. Approve the acceptance criteria and task list (`docs/specs/<name>.md`).
+4. Katsuo writes a test before the code for each task. After 3 failed attempts on a task, it asks you.
+5. A read-only reviewer checks the diff, and any problems are fixed.
+6. You get a Pull Request link. You merge it.
 
-**Verified 2026-10-06:** the deterministic suite, Claude Code live smoke, and Codex live smoke all passed.
+A hook blocks the agent from pushing to `main`/`master`, force-pushing, or merging.
 
-| Evidence | What it proves |
-|---|---|
-| CI test suite | Package consistency, referenced files, guard behavior, and packaged hook wiring |
-| Claude validation | Claude Code accepts the plugin package |
-| Codex discovery | Codex has Katsuo installed and enabled |
-| Live smoke | Passed: both hosts loaded and ran Katsuo's skill |
+## For developers
 
-A passing test proves the tested path. It does not make every future model decision deterministic.
+### Tests
 
-## Files
+```bash
+python3 tests/e2e_smoke.py          # check the package and hook wiring
+python3 tests/e2e_smoke.py --live   # run Katsuo in authenticated Claude Code and Codex
+```
+
+### Files
 
 ```text
 skills/katsuo/SKILL.md  the command and working process
 agents/reviewer.md      independent reviewer (read-only)
-hooks/guard_git.py      PR-only Git guard
-tests/e2e_smoke.py      deterministic and live proof command
+hooks/guard_git.py      Git guard
+tests/e2e_smoke.py      deterministic and live tests
 ```
 
 Author: Aakash
