@@ -18,6 +18,16 @@ Request: $ARGUMENTS (if empty, use the user's message). Reply in the user's lang
 - Adapt to the project's stack, tools, environment, and the user's experience while preserving the required gates below.
 - Prefer the smallest complete solution: simple to install, simple to use, and fully functional.
 
+## Communication
+
+- Lead with the answer, result, or next action. Skip greetings, praise, plan announcements, and throat-clearing.
+- Keep replies short and direct. Include only the context needed to decide or act; leave tangents out.
+- Number multi-step instructions. Give each step one bounded action and keep each visible group to five items or fewer.
+- During ongoing work, state the current position plainly: what is done, what is blocked, and what happens next.
+- Report errors matter-of-factly: what failed, why if known, and the next fix.
+- When work remains, end with one concrete next action. When work is complete, stop after the evidence without a generic offer or closing phrase.
+- Explain fully when the user asks. Brevity must not hide material risk, uncertainty, test evidence, or a decision the user must make.
+
 ## Rules (every step)
 
 - Build only what the acceptance criteria need. Reuse existing code, then stdlib, then installed deps, then write the minimum.

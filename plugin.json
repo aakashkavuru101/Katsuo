@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "katsuo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only.",
   "author": {
     "name": "Aakash"

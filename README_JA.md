@@ -4,7 +4,7 @@
 
 [English](README.md) | **日本語**
 
-Claude Code と Codex 用の開発プラグインです。仕様 → テスト駆動開発 → 独立レビュー → Pull Request の順に作業を進めます。
+Claude Code と Codex 用の開発プラグインです。答えを先に伝え、手順は短く、話を脇道にそらしません。仕様 → テスト駆動開発 → 独立レビュー → Pull Request の順に作業を進めます。
 
 ## インストール
 
