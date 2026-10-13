@@ -4,7 +4,7 @@
 
 **English** | [日本語](README_JA.md)
 
-A development plugin for Claude Code and Codex. It works in this order: spec → test-driven build → independent review → Pull Request.
+A development plugin for Claude Code and Codex. It leads with the answer, keeps steps short, and leaves tangents out. It works in this order: spec → test-driven build → independent review → Pull Request.
 
 ## Install
 
