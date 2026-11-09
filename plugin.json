@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "katsuo",
-  "version": "0.1.1",
-  "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only.",
+  "version": "0.2.0",
+  "description": "Your curious AI development partner: test-driven quality, independent review, minimal, private, PR-only, and it learns your project every day.",
   "author": {
     "name": "Aakash"
   },
@@ -13,6 +13,6 @@
     "guardrails",
     "pull-requests"
   ],
-  "repository": "https://github.com/AllBlue-inc/katsuo",
-  "homepage": "https://github.com/AllBlue-inc/katsuo"
+  "repository": "https://github.com/aakashkavuru101/katsuo",
+  "homepage": "https://github.com/aakashkavuru101/katsuo"
 }

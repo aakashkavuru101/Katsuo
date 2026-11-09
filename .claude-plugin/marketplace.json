@@ -1,12 +1,12 @@
 {
   "name": "katsuo",
-  "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only.",
+  "description": "Your curious AI development partner: test-driven quality, independent review, minimal, private, PR-only, and it learns your project every day.",
   "owner": { "name": "Aakash" },
   "plugins": [
     {
       "name": "katsuo",
       "source": "./",
-      "description": "Your curious AI development partner: private, secure, structured, minimal, and PR-only."
+      "description": "Your curious AI development partner: test-driven quality, independent review, minimal, private, PR-only, and it learns your project every day."
     }
   ]
 }

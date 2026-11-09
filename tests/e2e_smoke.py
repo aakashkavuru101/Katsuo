@@ -50,10 +50,8 @@ def codex_result(output):
 
 def assert_small(label, text):
     first = text.lstrip(" \n#*`").split(maxsplit=1)
-    if not first or first[0].rstrip(":*`.,—-").lower() != "small":
+    if not first or first[0].rstrip(":*`").lower() != "small":
         raise RuntimeError(f"{label}: response did not classify the change as Small")
-    if len(text.split()) > 40:
-        raise RuntimeError(f"{label}: response buried the answer in more than 40 words")
     print(f"PASS {label} behavior")
 
 

@@ -44,6 +44,13 @@ class PluginPackageTest(unittest.TestCase):
             self.assertTrue((ROOT / path).is_file(), path)
         self.assertTrue(os.access(ROOT / "hooks/guard_git.py", os.X_OK))
 
+    def test_learning_loop_and_license_present(self):
+        skill = (ROOT / "skills/katsuo/SKILL.md").read_text()
+        self.assertIn("## Start from memory", skill)
+        self.assertIn("## 5. Learn", skill)
+        self.assertTrue((ROOT / "LICENSE").is_file())
+        self.assertTrue((ROOT / "CHANGELOG.md").is_file())
+
     def test_packaged_hook_blocks_main_and_allows_feature(self):
         hook = load("hooks/hooks.json")["hooks"]["PreToolUse"][0]["hooks"][0]
         command = hook["command"].replace("${CLAUDE_PLUGIN_ROOT}", str(ROOT))
