@@ -3,6 +3,8 @@
 [![Tests](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml)
 ![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
 ![Version](https://img.shields.io/badge/version-0.3.0-2563eb)
+![License](https://img.shields.io/badge/license-MIT-2ea44f)
+[![Release](https://img.shields.io/github/v/release/aakashkavuru101/Katsuo)](https://github.com/aakashkavuru101/Katsuo/releases)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
 
@@ -87,7 +89,7 @@ python3 tests/e2e_smoke.py --live
 
 最初のコマンドは、パッケージの整合性とマニフェストから実際のフックまでの経路を証明します。Claude Codeがあればパッケージを検証し、CodexがあればKatsuoが有効かも確認します。`--live`は、認証済みの両方のホストからKatsuoを実行して応答を確認します。Claudeのツールは無効にし、Codexは読み取り専用サンドボックスで実行します。認証情報は各CLI内に留まり、テストには保存されません。
 
-**2026-10-06 検証済み:** 決定的テスト、Claude Codeのライブスモーク、Codexのライブスモークはすべて合格しました。
+**2026-11-09 検証済み:** 33件のテストが合格（パッケージ整合性、Gitガード、フック接続）。
 
 | 根拠 | 証明すること |
 |---|---|

@@ -3,6 +3,8 @@
 [![Tests](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml)
 ![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
 ![Version](https://img.shields.io/badge/version-0.3.0-2563eb)
+![License](https://img.shields.io/badge/license-MIT-2ea44f)
+[![Release](https://img.shields.io/github/v/release/aakashkavuru101/Katsuo)](https://github.com/aakashkavuru101/Katsuo/releases)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
 
@@ -87,7 +89,7 @@ python3 tests/e2e_smoke.py --live
 
 The first command proves the package contracts and the real manifest-to-hook path, validates the Claude package when Claude Code is installed, and confirms Codex discovery when Codex is installed. `--live` also invokes Katsuo through both authenticated hosts and checks its response. Claude tools are disabled and Codex runs in its read-only sandbox. Credentials stay with the host CLIs and are never stored by the test.
 
-**Verified 2026-10-06:** the deterministic suite, Claude Code live smoke, and Codex live smoke all passed.
+**Verified 2026-11-09:** 33 tests pass — package contracts, the Git guard (protected-branch, force, secret, and spec gates), and the packaged hook wiring.
 
 | Evidence | What it proves |
 |---|---|
