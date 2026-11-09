@@ -24,6 +24,13 @@ def make_repo(remote="https://github.com/acme/app.git", branch="main"):
     return d
 
 
+def write_spec(repo, slug):
+    d = os.path.join(repo, "docs", "specs")
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, f"{slug}.md"), "w") as f:
+        f.write("# spec\n")
+
+
 def run_hook(command, cwd):
     payload = {"tool_name": "Bash", "tool_input": {"command": command}, "cwd": cwd}
     return subprocess.run([sys.executable, HOOK], input=json.dumps(payload),
@@ -85,12 +92,16 @@ class GuardGitTest(unittest.TestCase):
     def test_commit_on_main(self):
         self.assertBlocked("git commit -m 'wip'")
 
-    # --- normal PR workflow is allowed
+    # --- normal PR workflow is allowed (a spec must exist first)
     def test_push_feature_branch(self):
-        self.assertAllowed("git push -u origin feat/x", branch="feat/x")
+        repo = make_repo(branch="feat/x")
+        write_spec(repo, "x")
+        self.assertEqual(run_hook("git push -u origin feat/x", repo).returncode, 0)
 
     def test_push_feature_branch_implicit(self):
-        self.assertAllowed("git push", branch="feat/x")
+        repo = make_repo(branch="feat/x")
+        write_spec(repo, "x")
+        self.assertEqual(run_hook("git push", repo).returncode, 0)
 
     def test_commit_on_feature(self):
         self.assertAllowed("git commit -m 'feat: x'", branch="feat/x")
@@ -100,6 +111,54 @@ class GuardGitTest(unittest.TestCase):
 
     def test_unrelated_command(self):
         self.assertAllowed("echo 'git push origin main is blocked'")
+
+    # --- secrets are blocked at commit and push
+    def test_commit_with_secret(self):
+        repo = make_repo(branch="feat/x")
+        with open(os.path.join(repo, "leak.txt"), "w") as f:
+            f.write("token = ghp_12345678901234567890\n")
+        git(repo, "add", "leak.txt")
+        r = run_hook("git commit -m 'x'", repo)
+        self.assertEqual(r.returncode, 2, "expected secret block")
+        self.assertIn("potential secrets", r.stderr)
+
+    def test_commit_without_secret(self):
+        repo = make_repo(branch="feat/x")
+        with open(os.path.join(repo, "ok.txt"), "w") as f:
+            f.write("hello world\n")
+        git(repo, "add", "ok.txt")
+        self.assertEqual(run_hook("git commit -m 'x'", repo).returncode, 0)
+
+    def test_push_with_secret(self):
+        repo = make_repo(branch="feat/x")
+        write_spec(repo, "x")
+        git(repo, "add", "docs")
+        git(repo, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "spec")
+        with open(os.path.join(repo, "leak.txt"), "w") as f:
+            f.write("AKIAIOSFODNN7EXAMPLE\n")
+        git(repo, "add", "leak.txt")
+        git(repo, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "leak")
+        r = run_hook("git push -u origin feat/x", repo)
+        self.assertEqual(r.returncode, 2, "expected secret block on push")
+        self.assertIn("potential secrets", r.stderr)
+
+    # --- spec gate on push
+    def test_push_feat_without_spec(self):
+        repo = make_repo(branch="feat/x")
+        r = run_hook("git push -u origin feat/x", repo)
+        self.assertEqual(r.returncode, 2, "expected spec block")
+        self.assertIn("no spec", r.stderr)
+
+    def test_push_feat_with_spec(self):
+        repo = make_repo(branch="feat/x")
+        write_spec(repo, "x")
+        git(repo, "add", "docs")
+        git(repo, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "spec")
+        self.assertEqual(run_hook("git push -u origin feat/x", repo).returncode, 0)
+
+    def test_push_non_feat_without_spec(self):
+        repo = make_repo(branch="fix/x")
+        self.assertEqual(run_hook("git push -u origin fix/x", repo).returncode, 0)
 
     # --- rule only applies to GitHub repos
     def test_non_github_remote(self):

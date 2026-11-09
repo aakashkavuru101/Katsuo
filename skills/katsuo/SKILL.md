@@ -28,6 +28,7 @@ Request: $ARGUMENTS (if empty, use the user's message). Reply in the user's lang
 - No secrets in code, logs, commits, or prompts. Ask before destructive commands.
 - Docs: short, headings and tables, one topic per file, updated in the same PR as the code.
 - GitHub repos: feature branch and Pull Request only. Never push to main/master, force-push, or merge.
+- A hook enforces the hard rules: no protected-branch push/force/merge, no secrets in commits or pushes, and no pushing a feature branch without its spec. You can still run those commands yourself.
 
 ## Start from memory
 

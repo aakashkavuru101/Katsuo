@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml)
 ![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
-![Version](https://img.shields.io/badge/version-0.2.0-2563eb)
+![Version](https://img.shields.io/badge/version-0.3.0-2563eb)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
 
@@ -48,7 +48,13 @@ Katsuoは好奇心旺盛な魚です。行動する前に必要な情報を集�
 | PR | 機能ブランチをpushし、Pull Requestを作成 | マージを判断 |
 | 学習 | 変更後に振り返り、プロジェクトの記憶へ教訓を記録して、次の作業を賢くする | 何を覚えるか |
 
-GitHubリポジトリでは、エージェントによる`main`/`master`へのpush、force-push、マージをフックが禁止します。これらの最終判断は、常にあなたが行います。
+フックによるハードガード（指示ではなく、実際にブロックします）:
+
+- `main`/`master`へのpush、force-push、`gh pr merge`の禁止。
+- 秘密情報（鍵やトークン）を含むコミット・pushの禁止。
+- `docs/specs/<slug>.md`のない`feat/<slug>`ブランチのpushの禁止。
+
+エージェントはこれらを実行できません。フックがブロックします。あなた自身は実行できます。
 
 ## インストール
 

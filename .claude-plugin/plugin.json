@@ -1,7 +1,7 @@
 {
   "name": "katsuo",
   "description": "Your curious AI development partner: test-driven quality, independent review, minimal, private, PR-only, and it learns your project every day.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Aakash"
   },

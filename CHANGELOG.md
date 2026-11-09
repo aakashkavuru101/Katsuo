@@ -4,6 +4,22 @@ All notable changes to Katsuo are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-11-09
+
+### Added
+
+- **Deterministic quality guards** in `hooks/guard_git.py`:
+  - secret guard — blocks commits and pushes that introduce high-confidence
+    secrets (private keys, GitHub/OpenAI/AWS/Slack/Google tokens);
+  - spec guard — blocks an agent from pushing a `feat/<slug>` branch without
+    `docs/specs/<slug>.md`.
+- Tests for both guards.
+
+### Changed
+
+- Moved "no spec, no ship" and "no secrets" from prompt-level rules to
+  execution-level hooks that cannot be skipped.
+
 ## [0.2.0] - 2026-11-09
 
 ### Added

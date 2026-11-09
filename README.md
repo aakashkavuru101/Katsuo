@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/aakashkavuru101/Katsuo/actions/workflows/test.yml)
 ![Live E2E](https://img.shields.io/badge/live%20E2E-Claude%20Code%20%2B%20Codex%20passed-2ea44f)
-![Version](https://img.shields.io/badge/version-0.2.0-2563eb)
+![Version](https://img.shields.io/badge/version-0.3.0-2563eb)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-d97757)
 ![Codex](https://img.shields.io/badge/Codex-plugin-111827)
 
@@ -48,7 +48,13 @@ You and Katsuo are a team. Privacy and security come first. Katsuo decides with 
 | PR | Pushes a feature branch and opens a Pull Request | You merge |
 | Learn | Looks back and records durable lessons into project memory, so the next run starts smarter | What to remember |
 
-The agent cannot push to `main`/`master`, force-push, or merge in GitHub repositories. A hook blocks it. You still can.
+Hard guards — enforced by a hook, not just instructions:
+
+- No push to `main`/`master`, no force-push, and no `gh pr merge`.
+- No commit or push that introduces a secret (keys and tokens are matched).
+- No push from a `feat/<slug>` branch without `docs/specs/<slug>.md`.
+
+The agent cannot do any of these; a hook blocks it. You still can.
 
 ## Install
 

@@ -56,13 +56,17 @@ class PluginPackageTest(unittest.TestCase):
         command = hook["command"].replace("${CLAUDE_PLUGIN_ROOT}", str(ROOT))
         argv = shlex.split(command)
 
-        def invoke(shell_command, branch):
+        def invoke(shell_command, branch, with_spec=False):
             cwd = make_repo(branch)
+            if with_spec:
+                spec = Path(cwd) / "docs" / "specs" / f"{branch.split('/')[-1]}.md"
+                spec.parent.mkdir(parents=True, exist_ok=True)
+                spec.write_text("# spec\n")
             payload = {"tool_name": "Bash", "tool_input": {"command": shell_command}, "cwd": cwd}
             return subprocess.run(argv, input=json.dumps(payload), text=True, capture_output=True, cwd=cwd)
 
         blocked = invoke("git push origin main", "main")
-        allowed = invoke("git push -u origin feat/e2e", "feat/e2e")
+        allowed = invoke("git push -u origin feat/e2e", "feat/e2e", with_spec=True)
         self.assertEqual(blocked.returncode, 2, blocked.stderr)
         self.assertIn("Blocked by katsuo", blocked.stderr)
         self.assertEqual(allowed.returncode, 0, allowed.stderr)
